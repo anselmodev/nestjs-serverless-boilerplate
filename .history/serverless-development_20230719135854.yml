@@ -1,0 +1,60 @@
+service: nestjs-serverless-boilerplate
+
+useDotenv: true
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-jetpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: sa-east-1
+  stage: dev
+  profile: serverless-admin
+  environment:
+    AMBIENT: ${env:AMBIENT}
+    VERSION: ${env:VERSION}
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: POST
+          path: /
+      - http:
+          method: POST
+          path: '{proxy+}'
+      - http:
+          method: PUT
+          path: /
+      - http:
+          method: PUT
+          path: '{proxy+}'
+      - http:
+          method: PATCH
+          path: /
+      - http:
+          method: PATCH
+          path: '{proxy+}'
+      - http:
+          method: DELETE
+          path: /
+      - http:
+          method: DELETE
+          path: '{proxy+}'
+      - http:
+          method: OPTIONS
+          path: /
+      - http:
+          method: OPTIONS
+          path: '{proxy+}'
+      - http:
+          method: GET
+          path: /
+      - http:
+          method: GET
+          path: '{proxy+}'

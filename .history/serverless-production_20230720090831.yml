@@ -1,0 +1,81 @@
+service: nestjs-serverless-boilerplate
+
+useDotenv: true
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-jetpack
+  - serverless-domain-manager
+  - serverless-offline
+
+custom:
+  customDomain:
+    domainName: auth.byefive.com.br
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: sa-east-1
+  stage: prod
+  profile: serverless-admin
+  environment:
+    AMBIENT: ${env:AMBIENT}
+    VERSION: ${env:VERSION}
+    CDN: ${env:CDN}
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: POST
+          path: /
+          cors: true
+      - http:
+          method: POST
+          path: '{proxy+}'
+          cors: true
+      - http:
+          method: PUT
+          path: /
+          cors: true
+      - http:
+          method: PUT
+          path: '{proxy+}'
+          cors: true
+      - http:
+          method: PATCH
+          path: /
+          cors: true
+      - http:
+          method: PATCH
+          path: '{proxy+}'
+          cors: true
+      - http:
+          method: DELETE
+          path: /
+          cors: true
+      - http:
+          method: DELETE
+          path: '{proxy+}'
+          cors: true
+      - http:
+          method: OPTIONS
+          path: /
+          cors: true
+      - http:
+          method: OPTIONS
+          path: '{proxy+}'
+          cors: true
+      - http:
+          method: GET
+          path: /
+          cors: true
+      - http:
+          method: GET
+          path: '{proxy+}'
+          cors: true

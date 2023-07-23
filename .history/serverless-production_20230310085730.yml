@@ -1,0 +1,57 @@
+service: api-authentication-serverless
+
+useDotenv: true
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-jetpack
+  - serverless-domain-manager
+  - serverless-offline
+
+custom:
+  customDomain:
+    domainName: auth.byefive.com.br
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: sa-east-1
+  stage: prod
+  profile: serverless-admin
+  environment:
+    AMBIENT: production
+    VERSION: ${env:VERSION}
+    BEARER_SECRET: ${env:BEARER_SECRET}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRES_USER_DASHBOARD: ${env:JWT_EXPIRES_USER_DASHBOARD}
+    JWT_EXPIRES_USER_LABELER: ${env:JWT_EXPIRES_USER_LABELER}
+    JWT_EXPIRES_USER_PROFESSIONAL: ${env:JWT_EXPIRES_USER_PROFESSIONAL}
+    KEYCHAR: ${env:KEYCHAR}
+    API_KEY: ${env:API_KEY}
+    API_URL: ${env:API_URL}
+    API_SECURITY_URL: ${env:API_SECURITY_URL}
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: POST
+          path: /
+          cors: true
+      - http:
+          method: POST
+          path: '{proxy+}'
+          cors: true
+      - http:
+          method: GET
+          path: /
+          cors: true
+      - http:
+          method: GET
+          path: '{proxy+}'
+          cors: true
