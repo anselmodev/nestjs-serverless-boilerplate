@@ -5,7 +5,7 @@ import { encryptChar } from 'encrypt-char';
 import {
   KEYCHAR,
   KEYCHAR_SECRET,
-} from '../../shared/constants/environment.constants';
+} from 'src/@core/shared/constants/environment.constants';
 
 @Injectable()
 export class EncryptTestService {

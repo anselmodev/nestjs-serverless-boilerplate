@@ -5,8 +5,7 @@ import { DecryptTestDto } from './dto/decrypt-test.dto';
 
 describe('EncryptTestService', () => {
   let encryptTestService: EncryptTestService;
-  const encryptedText = '1Zf1r6gK9IJAK1e7D9vWpX2WGXi';
-  const textValue = 'Hello, NestJS!';
+  let encryptedText = '1Zf1r6gK9IJAK1e7D9vWpX2WGXi';
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -18,6 +17,7 @@ describe('EncryptTestService', () => {
 
   describe('encrypt and decrypt text', () => {
     it('should encrypt text', () => {
+      const textValue = 'Hello, NestJS!';
       const encryptTestDto: EncryptTestDto = { textValue };
 
       const encryptResult = encryptTestService.encryptText(encryptTestDto);
@@ -27,6 +27,7 @@ describe('EncryptTestService', () => {
     });
 
     it('should decrypt text', () => {
+      const decryptedTextValue = 'Hello, NestJS!';
       const decryptTestDto: DecryptTestDto = {
         encryptedTextValue: encryptedText,
       };
@@ -34,7 +35,7 @@ describe('EncryptTestService', () => {
       const result = encryptTestService.decryptText(decryptTestDto);
 
       expect(result.message).toEqual('Decryption Successfully');
-      expect(result.result).toEqual(textValue);
+      expect(result.result).toEqual(decryptedTextValue);
     });
   });
 });
