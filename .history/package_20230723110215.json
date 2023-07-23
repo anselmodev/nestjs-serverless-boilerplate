@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A NestJS and Serverless Boilerplate Application",
   "author": "Anselmo Lima",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",

@@ -1,8 +1,9 @@
 {
   "name": "nestjs-serverless-boilerplate",
   "version": "0.0.1",
-  "description": "A NestJS and Serverless Boilerplate Application",
+  "description": "",
   "author": "Anselmo Lima",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
